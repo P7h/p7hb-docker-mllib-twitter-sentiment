@@ -2,6 +2,7 @@
 This image facilitates the analyzing, processing and visualizing Twitter Sentiment using the following technologies:
 
 * Scala
+* Spark
 * Spark MLlib
 * Spark Streaming
 * Spark SQL
@@ -15,11 +16,11 @@ This image facilitates the analyzing, processing and visualizing Twitter Sentime
 ## Get this Docker image
 There are 2 options for getting this image:
 
-1. Build this image using [`Dockerfile`](Dockerfile)
+1. Build the image using [`Dockerfile`](Dockerfile)
 2. Pull the image directly from DockerHub.
 
-### Build this image
-Copy the [`Dockerfile`](Dockerfile) to a folder on your local machine and then invoke the following command.
+### Build Docker image
+Copy the [`Dockerfile`](Dockerfile) and [`bootstrap.sh`](bootstrap.sh) to a folder on your local machine and then invoke the following command.
 
 
     docker build -t p7hb/p7hb-docker-mllib-twitter-sentiment:1.6.2 .
@@ -40,25 +41,29 @@ The above step will launch and run the image with:
 
  * `root` user [as defined in the `Dockerfile`].
  * `spark` as host name.
- * `spark` container name.
+ * `spark` as container name.
  * Exposes ports 4040, 8080, 8081 and 9999.
 
 ## Softwares and versions
-This image is built from another image: [p7hb-docker-spark](https://hub.docker.com/r/p7hb/p7hb-docker-spark/), which contains Java, Scala, SBT and Apache Spark.
+This image is built on top of another image: [p7hb-docker-spark](https://hub.docker.com/r/p7hb/p7hb-docker-spark/), which contains Java, Scala, SBT and Apache Spark.
 
 This Docker image adds and sets up the following to the above image.
 
  * Redis
  * Python
  * pip 
+ * pip packages for Redis and Flask
  
 
 ## Prerequisites for successful execution
 
-* A decent enough machine with at least 1.5 GB RAM and a minimum of 2 CPUs allocated to the Docker Machine.
 * We will need unfettered internet access for executing this project.
-* Twitter OAuth Credentials are required.
-* We will download ~1.5 GB of data with this image and SBT dependencies, etc.
+* Twitter App OAuth Credentials are mandatory. This is for retrieving tweets from Twitter in real-time.
+* We will download ~1.5 GB of data with this image and SBT dependencies, etc and also tweets.
+* A decent enough workstation allocating at least the following to the Docker-machine [actually the more, the merrier]:
+	* 1.5 GB RAM
+	* 2 CPUs
+	* 10 GB free disk space
 
 ## Steps to execute the prototype
 During the image building phase, a file `bootstrap.sh` is copied to the home folder of `root` user. 
@@ -70,8 +75,8 @@ This file also starts Spark Master and Spark Slave services on the image.
 And finally, in a `screen` session, it triggers an app for the Visualization of Twitter Sentiment on a world map, which can be accessed on the host machine by launching the browser and pointing it to: [`http://192.168.99.100:9999/`](http://192.168.99.100:9999/).  
 
 
-### Twitter OAuth Credentials
-The only manual step in this completely automated project is updating the Twitter OAuth Credentials. 
+### Twitter App OAuth Credentials
+The only manual step in this completely automated project is setting up a Twitter App and updating its Credentials to connect to Twitter Streaming API.
 
 * Please check the [`application.conf`](src/main/resources/application.conf#L4-7) and add your own values and complete the integration of Twitter API to your application by looking at your values from [Twitter Developer Page](https://dev.twitter.com/apps).<br>
 	* If you did not create a Twitter App before, then please create a new Twitter App where you will get all the required values of `application.conf` afresh and then populate them here without any mistake.<br> 
