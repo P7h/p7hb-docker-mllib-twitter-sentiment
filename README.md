@@ -1,16 +1,12 @@
 ## Introduction
-This Docker image facilitates analyzing, processing and visualizing Twitter Sentiment using the following technologies:
+Docker image facilitating analysis, processing and visualizing Twitter Sentiment using Spark MLlib for Spark-MLlib-Twitter-Sentiment-Analysis hosted on [GitHub](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis).
 
-* Scala
-* Spark
-* Spark MLlib
-* Spark Streaming
-* Spark SQL
-* Stanford CoreNLP
-* Redis
-* D3.js
-* Datamaps
-* Flask
+Please check [README](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/blob/master/README.md) of the GitHub project or the [blogpost](http://P7h.org) for more info.
+
+
+## Demo
+### TBD
+
 
 ## Softwares and versions
 This Docker image is built on top of another image: [p7hb-docker-spark](https://hub.docker.com/r/p7hb/p7hb-docker-spark/), which contains Java, Scala, SBT and Apache Spark.
@@ -22,6 +18,20 @@ This image adds and sets up the following to the above image.
  * pip 
  * pip packages for Redis and Flask
  
+ Following is the complete list of languages, libraries and components used in this project.
+
+0. OpenJDK 64-Bit v1.8.0_102 » Java for compiling and execution
+1. Scala v2.10.6 » basic infrastructure and Spark jobs
+2. SBT v0.13.12 » build file for scala code
+3. Apache Spark v1.6.2
+	* Spark Streaming » connecting to Twitter and streaming the tweets
+	* Spark MLlib » creating a ML model and predicting the sentiment of tweets based on the text
+	* Spark SQL » saving tweets [both raw and classified]
+4. Stanford CoreNLP v3.6.0 » alternative mechanism to find sentiment of tweets based on the text
+5. Redis » saving classified tweet info for the front-end to render the chart
+6. D3.js / Datamaps » charting
+7. Python » running the flask app for rendering the front-end
+8. Flask » rendering the template for front-end
 
 ## Prerequisites for successful execution
 
@@ -99,20 +109,24 @@ This might take sometime as SBT will initiate a download and setup of all the re
 
 ### Manual -- Start Spark Services and then execute Spark jobs individually
 #### Start Spark Master
-$SPARK_HOME/sbin/start-master.sh
+
+	$SPARK_HOME/sbin/start-master.sh
 
 #### Start Spark Slave
-$SPARK_HOME/sbin/start-slave.sh spark://spark:7077
+
+	$SPARK_HOME/sbin/start-slave.sh spark://spark:7077
 
 #### Execute Spark job for creating the Naive Bayes Model
-By invoking this step, we are triggering a Spark job for loading the training data to create a Naive Bayes Model for the training set. 
-
-This Model will be used in the next step for predicting the sentiment of streaming tweets in real-time.
+By invoking this step, we are triggering a Spark job for loading the training data to create a Naive Bayes Model for the training set.
 
     cd /root/Spark-MLlib-Twitter-Sentiment-Analysis/
 	sbt clean assembly
 	cd /root/Spark-MLlib-Twitter-Sentiment-Analysis/target/scala-2.10/
 	spark-submit --class "org.p7h.spark.sentiment.mllib.SparkNaiveBayesModelCreator" --master spark://spark:7077 mllib-tweet-sentiment-analysis-assembly-0.1.jar
+
+This Model will be used in the next step for predicting the sentiment of streaming tweets in real-time.
+
+Build might take a bit of time depending your internet speed, as SBT will initiate a download and setup of all the required packages from Maven Central Repo and Typesafe repo as required.
 
 #### Execute Spark Streaming job for sentiment prediction
 
@@ -120,9 +134,23 @@ This Model will be used in the next step for predicting the sentiment of streami
 	spark-submit --class "org.p7h.spark.sentiment.TweetSentimentAnalyzer" --master spark://spark:7077 mllib-tweet-sentiment-analysis-assembly-0.1.jar
 
 ## Visualization app
-After a few minutes of launching Spark jobs, point your browser on the host machine to [`http://192.168.99.100:9999/`](http://192.168.99.100:9999/) to view the Twitter Sentiment visualized on a world map.
+After a few minutes of launching Spark jobs, point your browser on the host machine to [`http://192.168.99.100:9999/`](http://192.168.99.100:9999/) to view Twitter Sentiment visualized on a world map.
 
 Hover over a bubble to see additional info about that data point.
+
+
+## TODO
+* Visualization could be completely scrapped for something better and UX needs a lot of uplifting.
+* Use Spark wrapper for [Stanford CoreNLP](https://spark-packages.org/package/databricks/spark-corenlp) and reduce the boilerplate code further.
+* Update the project to Spark v2.0.
+	* Push out RDD; hello DataFrames / Datasets.
+* GIF animation of the visualization.
+* TBD
+
+
+> ###NOTE:
+Please do not forget to modify the Twitter App OAuth credentials in the file [`application.conf`](src/main/resources/application.conf#L7-10).<br>
+Please check [Twitter Developer page](https://dev.twitter.com/apps) for more info. 
 
 
 ## License
