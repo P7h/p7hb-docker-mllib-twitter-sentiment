@@ -1,7 +1,9 @@
 ## Introduction
-Docker image facilitating analysis, processing and visualizing Twitter Sentiment using Spark MLlib for Spark-MLlib-Twitter-Sentiment-Analysis hosted on [GitHub](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis).
+Docker image facilitating analysis, processing and visualizing Twitter Sentiment using Spark MLlib for ["Spark-MLlib-Twitter-Sentiment-Analysis" project hosted on GitHub](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis).
 
-Please check [README](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/blob/master/README.md) of the GitHub project or the [blogpost](http://P7h.org) for more info.
+Please check ["Spark-MLlib-Twitter-Sentiment-Analysis" README](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/blob/master/README.md) of the GitHub project or the [blogpost](http://P7h.org) for more info.
+
+This Docker Image is hosted on [Docker Hub](https://hub.docker.com/r/p7hb/p7hb-docker-mllib-twitter-sentiment); while the code is hosted on [GitHub](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis).
 
 
 ## Demo
@@ -33,6 +35,7 @@ This image adds and sets up the following to the above image.
 7. Python » running the flask app for rendering the front-end
 8. Flask » rendering the template for front-end
 
+
 ## Prerequisites for successful execution
 
 * A decent machine in which you can allocate at least the following to the Docker-machine [actually the more, the merrier]:
@@ -43,6 +46,23 @@ This image adds and sets up the following to the above image.
 * Twitter App OAuth Credentials are mandatory. This is for retrieving tweets from Twitter in real-time.
 * We will download ~1.5 GB of data with this image and SBT dependencies, etc and also tweets.
 
+### Resources for the Docker machine
+* Stop docker-machine.
+
+	`docker-machine stop default`
+
+* Launch Virtual Box and click on settings of `default` instance, which should be in `Powered Off` state.
+* Fix the settings as highlighted in the screenshots below. Please note this is minimum required config; you might want to allocate more.
+
+#### Increase RAM
+![Docker Machine RAM](Docker_Machine__RAM.png)
+
+#### Increase # of CPUs
+![Docker Machine CPU](Docker_Machine__CPU.png)
+
+* Relaunch docker after modifying the settings.
+* Now `cat /proc/cpuinfo` should report 2 CPUs and `cat /proc/meminfo` should report 1.5 GB RAM.
+	* Or the resources you allocated earlier.
 
 ## Get this Docker image
 There are 2 options for getting this image:
@@ -92,7 +112,8 @@ Docker image also contains another shell script: [`exec_spark_jobs.sh`](exec_spa
 The only manual intervention required in this project is setting up a Twitter App and updating its Credentials to connect to Twitter Streaming API.
 
 * Please check the [`application.conf`](src/main/resources/application.conf#L7-10) and add your own values and complete the integration of Twitter API to your application by looking at your values from [Twitter Developer Page](https://dev.twitter.com/apps).
-	* If you did not create a Twitter App before, then please create a new Twitter App on [Twitter Developer Page](https://dev.twitter.com/apps), where you will get all the required values of `application.conf` afresh and then populate them here without any mistake.<br>
+	* If you did not create a Twitter App before, then please create a new Twitter App on [Twitter Developer Page](https://dev.twitter.com/apps), where you will get all the required values of `application.conf` afresh and then populate them here without any mistake.
+
 
 ## Execute Spark jobs for sentiment analysis
 We can take one of these approaches to run the Spark jobs.
@@ -133,6 +154,7 @@ Build might take a bit of time depending your internet speed, as SBT will initia
 	cd /root/Spark-MLlib-Twitter-Sentiment-Analysis/target/scala-2.10/
 	spark-submit --class "org.p7h.spark.sentiment.TweetSentimentAnalyzer" --master spark://spark:7077 mllib-tweet-sentiment-analysis-assembly-0.1.jar
 
+
 ## Visualization app
 After a few minutes of launching Spark jobs, point your browser on the host machine to [`http://192.168.99.100:9999/`](http://192.168.99.100:9999/) to view Twitter Sentiment visualized on a world map.
 
@@ -149,10 +171,10 @@ Hover over a bubble to see additional info about that data point.
 
 
 > ###NOTE:
-Please do not forget to modify the Twitter App OAuth credentials in the file [`application.conf`](src/main/resources/application.conf#L7-10).<br>
+Please do not forget to modify the Twitter App OAuth credentials in the file [`application.conf`](src/main/resources/application.conf#L7-10).
 Please check [Twitter Developer page](https://dev.twitter.com/apps) for more info. 
 
 
 ## License
-Copyright &copy; 2016 Prashanth Babu.<br>
+Copyright &copy; 2016 Prashanth Babu.
 Licensed under the [Apache License, Version 2.0](LICENSE).
