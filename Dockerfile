@@ -22,7 +22,10 @@ ENV JAVA_OPTS "-server -Xms1536M -Xmx1536M"
 # Expose port for Visualization.
 EXPOSE 9999
 
-# A bash script to download and setup the training data and the source code.
+# A shell script to download and setup the training data and the source code.
 ADD bootstrap.sh /root/bootstrap.sh
+
+# Another shell script to trigger the Spark jobs.
+ADD exec_spark_jobs.sh /root/exec_spark_jobs.sh
 
 CMD bash -C '/root/bootstrap.sh';'bash'
