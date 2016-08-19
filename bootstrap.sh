@@ -5,6 +5,7 @@ mkdir -p /tmp/spark-events/
 
 echo -e "****** Initiated download of Sentiment140 Training data...... ******"
 mkdir -p /root/tweets_sentiment/sentiment140/
+# Sentiment140 website is a bit slow. So, retrieving the training data archive from Google Drive.
 # wget -q http://cs.stanford.edu/people/alecmgo/trainingandtestdata.zip
 wget --no-check-certificate 'https://googledrive.com/host/0B7czam11htXVT3NLNEx3UDdaV1k' -qO trainingandtestdata.zip
 echo -e "	****** Download complete...... ******\n"
