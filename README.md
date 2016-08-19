@@ -7,8 +7,12 @@ This Docker Image is hosted on [Docker Hub](https://hub.docker.com/r/p7hb/p7hb-d
 
 
 ## Demo
-### TBD
+### Twitter Sentiment Visualization
+#### GIF of Visualization
+![GIF of Twitter Sentiment Visualization](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/raw/master/Twitter_Sentiment_Visualization.gif)
 
+#### Screenshot of Visualization
+![Screenshot of Twitter Sentiment Visualization](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/raw/master/Twitter_Sentiment_Visualization.png)
 
 ## Softwares and versions
 This Docker image is built on top of another image: [p7hb-docker-spark](https://hub.docker.com/r/p7hb/p7hb-docker-spark/), which contains Java, Scala, SBT and Apache Spark.
@@ -31,7 +35,7 @@ This image adds and sets up the following to the above image.
 	* Spark SQL » saving tweets [both raw and classified]
 4. Stanford CoreNLP v3.6.0 » alternative mechanism to find sentiment of tweets based on the text
 5. Redis » saving classified tweet info for the front-end to render the chart
-6. D3.js / Datamaps » charting
+6. Datamaps » charting
 7. Python » running the flask app for rendering the front-end
 8. Flask » rendering the template for front-end
 
@@ -39,7 +43,7 @@ This image adds and sets up the following to the above image.
 ## Prerequisites for successful execution
 
 * A decent machine in which you can allocate at least the following to the Docker-machine [actually the more, the merrier]:
-	* 1.5 GB RAM
+	* 2 GB RAM
 	* 2 CPUs
 	* 6 GB free disk space
 * We will need unfettered internet access for executing this project.
@@ -55,13 +59,13 @@ This image adds and sets up the following to the above image.
 * Fix the settings as highlighted in the screenshots below. Please note this is minimum required config; you might want to allocate more.
 
 #### Increase RAM
-![Docker Machine RAM](Docker_Machine__RAM.png)
+![Docker Machine RAM](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/raw/master/Docker_Machine__RAM.png)
 
 #### Increase # of CPUs
-![Docker Machine CPU](Docker_Machine__CPU.png)
+![Docker Machine CPU](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/raw/master/Docker_Machine__CPU.png)
 
 * Relaunch docker after modifying the settings.
-* Now `cat /proc/cpuinfo` should report 2 CPUs and `cat /proc/meminfo` should report 1.5 GB RAM.
+* Now `cat /proc/cpuinfo` should report 2 CPUs and `cat /proc/meminfo` should report 2 GB RAM.
 	* Or the resources you allocated earlier.
 
 ## Get this Docker image
@@ -71,7 +75,7 @@ There are 2 options for getting this image:
 2. Pull the image directly from DockerHub
 
 ### Build Docker image
-Copy the [`Dockerfile`](Dockerfile) and the other 2 supporting files: [`bootstrap.sh`](bootstrap.sh) and [`exec_spark_jobs.sh`](exec_spark_jobs.sh) to a folder on your local machine and then invoke the following command.
+Copy the `Dockerfile` and the other 2 supporting files: `bootstrap.sh` and `exec_spark_jobs.sh` to a folder on your local machine and then invoke the following command.
 
 
     docker build -t p7hb/p7hb-docker-mllib-twitter-sentiment:1.6.2 .
@@ -100,7 +104,7 @@ Please note the following:
 
 
 ## Steps to execute the prototype
-During the image building phase, [`bootstrap.sh`](`bootstrap.sh`) shell script is copied to the home folder of `root` user. 
+During the image building phase, `bootstrap.sh` shell script is copied to the home folder of `root` user. 
 
 When the image is executed for the first time, this particular file creates the required folder structure, completes the downloading, setting up the source code and the training dataset on the image.
 
@@ -109,7 +113,7 @@ And finally, in a `screen` session, it triggers an app for the Visualization of 
 Docker image also contains another shell script: [`exec_spark_jobs.sh`](exec_spark_jobs) is also copied to home directory of `root` user.
 
 ### Twitter App OAuth Credentials
-The only manual intervention required in this project is setting up a Twitter App and updating its Credentials to connect to Twitter Streaming API.
+The only manual intervention required in this project is setting up a Twitter App and updating its Credentials to connect to Twitter Streaming API. Please note that this is a critical step and without this, Spark will not be able to connect to Twitter or retrieve tweets with Twitter Streaming API and so, the visualization will be empty basically without any data.
 
 * Please check the [`application.conf`](src/main/resources/application.conf#L7-10) and add your own values and complete the integration of Twitter API to your application by looking at your values from [Twitter Developer Page](https://dev.twitter.com/apps).
 	* If you did not create a Twitter App before, then please create a new Twitter App on [Twitter Developer Page](https://dev.twitter.com/apps), where you will get all the required values of `application.conf` afresh and then populate them here without any mistake.
@@ -118,10 +122,12 @@ The only manual intervention required in this project is setting up a Twitter Ap
 ## Execute Spark jobs for sentiment analysis
 We can take one of these approaches to run the Spark jobs.
 
-* Automated; using a shell script
+* Automation mechanism
 * Manual steps
 
-### Automated -- Use a shell script to run Spark jobs
+### Automated mechanism -- Use a shell script to run Spark jobs
+Just to remind again, before executing this step and further, please ensure that you have updated Twitter App OAuth Credentials in [`application.conf`](src/main/resources/application.conf#L7-10).
+
 Please execute [`exec_spark_jobs.sh`](exec_spark_jobs) on the console.
 
 This script first starts Spark Master and Spark Slave and then launches the Spark jobs one after the other.
@@ -150,6 +156,7 @@ This Model will be used in the next step for predicting the sentiment of streami
 Build might take a bit of time depending your internet speed, as SBT will initiate a download and setup of all the required packages from Maven Central Repo and Typesafe repo as required.
 
 #### Execute Spark Streaming job for sentiment prediction
+Just to remind again, before executing this step and further, please ensure that you have updated Twitter App OAuth Credentials in [`application.conf`](src/main/resources/application.conf#L7-10).
 
 	cd /root/Spark-MLlib-Twitter-Sentiment-Analysis/target/scala-2.10/
 	spark-submit --class "org.p7h.spark.sentiment.TweetSentimentAnalyzer" --master spark://spark:7077 mllib-tweet-sentiment-analysis-assembly-0.1.jar
@@ -162,12 +169,26 @@ Hover over a bubble to see additional info about that data point.
 
 
 ## TODO
+* TBD
 * Visualization could be completely scrapped for something better and UX needs a lot of uplifting.
 * Use Spark wrapper for [Stanford CoreNLP](https://spark-packages.org/package/databricks/spark-corenlp) and reduce the boilerplate code further.
+* Add or update comments in the code where necessary.
 * Update the project to Spark v2.0.
 	* Push out RDD; hello DataFrames / Datasets.
-* GIF animation of the visualization.
-* TBD
+
+
+## Expert Mode execution steps
+* Install and launch Docker.
+* Stop Docker and in the Virtual Box GUI, increase RAM of Docker machine [instance named default and should be in powered off state] to at least 2 GB or more and # of CPUs to 2 or more.
+* Start Docker again. Now `cat /proc/cpuinfo` should report 2 CPUs and `cat /proc/meminfo` should report 2 GB RAM.
+
+	`docker run -ti -p 4040:4040 -p 8080:8080 -p 8081:8081 -p 9999:9999 -h spark --name=spark p7hb/* p7hb-docker-mllib-twitter-sentiment:1.6.2`
+
+	* Might have to wait for ~10 minutes or so [depending on your internet speed].
+* Update `/root/Spark-MLlib-Twitter-Sentiment-Analysis/src/main/resources/application.conf` to include your Twitter App OAuth Credentials.
+* Execute: `/root/exec_spark_jobs.sh`
+* Point your browser to [`http://192.168.99.100:9999`](http://192.168.99.100:9999) for visualization.
+	* Might have to wait for ~10 minutes or so [depending on your internet speed].
 
 
 > ###NOTE:
@@ -177,4 +198,5 @@ Please check [Twitter Developer page](https://dev.twitter.com/apps) for more inf
 
 ## License
 Copyright &copy; 2016 Prashanth Babu.
+
 Licensed under the [Apache License, Version 2.0](LICENSE).

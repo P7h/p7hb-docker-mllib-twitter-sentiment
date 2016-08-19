@@ -3,9 +3,10 @@
 echo -e "\n\n******* Bootstrapping the code download and setup...... *******\n"
 mkdir -p /tmp/spark-events/
 
-echo -e "****** Initiated download of Sentiment140 Training data from Stanford website...... ******"
+echo -e "****** Initiated download of Sentiment140 Training data...... ******"
 mkdir -p /root/tweets_sentiment/sentiment140/
-wget -q http://cs.stanford.edu/people/alecmgo/trainingandtestdata.zip
+# wget -q http://cs.stanford.edu/people/alecmgo/trainingandtestdata.zip
+wget --no-check-certificate 'https://googledrive.com/host/0B7czam11htXVT3NLNEx3UDdaV1k' -qO trainingandtestdata.zip
 echo -e "	****** Download complete...... ******\n"
 
 echo -e "***** Extracting Sentiment140 Training data...... *****"
