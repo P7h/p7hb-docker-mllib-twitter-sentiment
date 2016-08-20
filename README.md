@@ -4,11 +4,11 @@
 ## Introduction
 Docker image facilitating analysis, processing and visualizing Twitter Sentiment using Spark MLlib for ["Spark-MLlib-Twitter-Sentiment-Analysis" project hosted on GitHub](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis).
 
-Please check ["Spark-MLlib-Twitter-Sentiment-Analysis" README](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/blob/master/README.md) of the GitHub project or the [blogpost](http://P7h.org) for more info.
+Please check ["Spark-MLlib-Twitter-Sentiment-Analysis" README](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/blob/master/README.md) of the GitHub project or the [blogpost](http://P7h.org/blog/2016/08/21/spark-twitter-sentiment/) for more info.
 
-Docker Image is hosted on [Docker Hub](https://hub.docker.com/r/p7hb/p7hb-docker-mllib-twitter-sentiment); while the code for the accompanying project is hosted on [GitHub](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis).
+Docker image is hosted on [Docker Hub](https://hub.docker.com/r/p7hb/p7hb-docker-mllib-twitter-sentiment); while the code for the accompanying project is available on [GitHub](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis).
 
-Dockerfile and other supporting files are also [hosted](https://github.com/P7h/p7hb-docker-mllib-twitter-sentiment) on GitHub.
+Dockerfile and other supporting files are also available on [GitHub](https://github.com/P7h/p7hb-docker-mllib-twitter-sentiment).
 
 
 ## Twitter Sentiment Visualization Demo
@@ -17,6 +17,18 @@ Dockerfile and other supporting files are also [hosted](https://github.com/P7h/p
 
 ### Screenshot of Visualization
 ![Screenshot of Twitter Sentiment Visualization](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/raw/master/Twitter_Sentiment_Visualization.png)
+
+
+## Features
+* Application retrieves tweets with Twitter Streaming API (using [Twitter4J](http://twitter4j.org)).
+* Process and analyses sentiment of all the tweets [which have location] using Spark MLlib and also Stanford CoreNLP.
+* Application can also save compressed raw tweets to the disk.
+	* Please set `SAVE_RAW_TWEETS` flag to `true` in [`application.conf`](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/blob/master/src/main/resources/application.conf#L30) if you want to save / retain the raw tweets we retrieve from Twitter.
+* [Datamaps](https://datamaps.github.io/) -- based on [D3.js](https://d3js.org/) -- is used for visualization to display the tweet location on the world map with a pop up for more details on hover.
+	* Visualization is fully responsive and automatically adjusts based on the resolution / resizing of the window. Works even on mobile.
+	* Hover over the bubbles to see the additional info of the tweets.
+* This codebase has been updated with comments, where necessary.
+* TBD
 
 
 ## Softwares and versions
@@ -29,46 +41,49 @@ This image adds and sets up the following to the above image.
  * pip 
  * pip packages for Redis and Flask
  
- Following is the complete list of languages, libraries and components used in this project.
+Following is the complete list of languages and frameworks used and their significance in this project.
 
-0. OpenJDK 64-Bit v1.8.0_102 » Java for compiling and execution
-1. Scala v2.10.6 » basic infrastructure and Spark jobs
-2. SBT v0.13.12 » build file for scala code
-3. Apache Spark v1.6.2
+1. OpenJDK 64-Bit v1.8.0_102 » Java for compiling and execution
+2. Scala v2.10.6 » basic infrastructure and Spark jobs
+3. SBT v0.13.12 » build file for scala code
+4. Apache Spark v1.6.2
 	* Spark Streaming » connecting to Twitter and streaming the tweets
 	* Spark MLlib » creating a ML model and predicting the sentiment of tweets based on the text
 	* Spark SQL » saving tweets [both raw and classified]
-4. Stanford CoreNLP v3.6.0 » alternative mechanism to find sentiment of tweets based on the text
-5. Redis » publishing classified tweets, subscribed by the front-end app to render the chart
-6. Datamaps » charting and visualization
-7. Python » running the flask app for rendering the front-end
-8. Flask » rendering the template for front-end
+5. Stanford CoreNLP v3.6.0 » alternative mechanism to find sentiment of tweets based on the text
+6. Redis » publishing classified tweets; subscribed by the front-end app to render the chart
+7. Datamaps » charting and visualization
+8. Python » running the flask app for rendering the front-end
+9. Flask » rendering the template for front-end
 
 
 ## Prerequisites for successful execution
 
-* A decent machine in which you can allocate at least the following to the Docker-machine [actually the more, the merrier]:
+* A machine with Docker installed and has a configuration in which you can allocate at least the following to the Docker-machine [actually the more, the merrier]:
 	* 2 GB RAM
 	* 2 CPUs
 	* 6 GB free disk space
 * We will need unfettered internet access for executing this project.
-* Twitter App OAuth credentials are mandatory. This is for retrieving tweets in real-time using Twitter Streaming API.
+* Twitter App OAuth credentials are mandatory. 
+	* This is for retrieving tweets in real-time using Twitter Streaming API.
 * We will download ~1.5 GB of data with this image and SBT dependencies, etc and streaming tweets too.
+
+### Env Setup
+If not already installed, please install Docker on your machine referring [installation steps](https://docs.docker.com/engine/installation/) on Docker website.
+
+We will be using the accompanying [Docker image](https://hub.docker.com/r/p7hb/p7hb-docker-mllib-twitter-sentiment) created for this project.
 
 ### Resources for the Docker machine
 * Stop docker-machine.
 
 	`docker-machine stop default`
 
-* Launch Virtual Box and click on settings of `default` instance, which should be in `Powered Off` state.
+* Launch VirtualBox and click on settings of `default` instance, which should be in `Powered Off` state.
 * Fix the settings as highlighted in the screenshots below. Please note this is minimum required config; you might want to allocate more.
-
 * Increase RAM of the VM
-![Docker Machine RAM](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/raw/master/Docker_Machine__RAM.png)
-
+	![Docker Machine RAM](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/raw/master/Docker_Machine__RAM.png)
 * Increase # of CPUs of the VM
-![Docker Machine CPU](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/raw/master/Docker_Machine__CPU.png)
-
+	![Docker Machine CPU](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/raw/master/Docker_Machine__CPU.png)
 * Relaunch docker after modifying the settings.
 * Any Docker image you create now will have 2 GB RAM and 2 CPUs allocated.
 	* Or the resources you allocated earlier.
@@ -96,11 +111,11 @@ With this approach, we are pulling the image hosted on Docker Hub instead of bui
 
 
 ## Run the image
-This step will launch and run the image and after it completes the setup process, you will land into a bash shell waiting for your input. If the image is not already present, this statement will download it from Docker Hub or uses the build already present on the local machine.
+* This step will launch and run the image and after it completes the setup process, you will land into a bash shell waiting for your input. If the image is not already present, this statement will download it from Docker Hub or uses the build already present on the local machine.
 
     docker run -ti -p 4040:4040 -p 8080:8080 -p 8081:8081 -p 9999:9999 -h spark --name=spark p7hb/p7hb-docker-mllib-twitter-sentiment:1.6.2
 
-Please note the following:
+Please note:
 
  * `root` is the user we logged into.
  * `spark` is the container name.
@@ -119,10 +134,9 @@ And finally, in a `screen` session, it triggers an app for the Visualization of 
 Docker image also contains another shell script: [`exec_spark_jobs.sh`](https://github.com/P7h/p7hb-docker-mllib-twitter-sentiment/blob/master/exec_spark_jobs.sh) is also copied to home directory of `root` user.
 
 ### Twitter App OAuth credentials
-The only manual intervention required in this project is setting up a Twitter App and updating its credentials to connect to Twitter Streaming API. Please note that this is a critical step and without this, Spark will not be able to connect to Twitter or retrieve tweets with Twitter Streaming API and so, the visualization will be empty basically without any data.
-
-* Please check the [`application.conf`](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/blob/master/src/main/resources/application.conf#L7-10) and add your own values and complete the integration of Twitter API to your application by looking at your values from [Twitter Developer Page](https://dev.twitter.com/apps).
-	* If you did not create a Twitter App before, then please create a new Twitter App on [Twitter Developer Page](https://dev.twitter.com/apps), where you will get all the required values of `application.conf` and then populate them here.
+* The only manual intervention required in this project is setting up a Twitter App and updating OAuth credentials to connect to Twitter Streaming API. Please note that this is a critical step and without this, Spark will not be able to connect to Twitter or retrieve tweets with Twitter Streaming API and so, the visualization will be empty basically without any data.
+* Please check the [`application.conf`](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/blob/master/src/main/resources/application.conf#L8-11) and add your own values and complete the integration of Twitter API to your application by looking at your values from [Twitter Developer Page](https://dev.twitter.com/apps).
+	* If you did not create a Twitter App before, then please create a new Twitter App on [Twitter Developer Page](https://dev.twitter.com/apps), where you will get all the required values of `application.conf`.
 
 
 ## Execute Spark jobs for sentiment analysis
@@ -132,13 +146,9 @@ We can take one of the following 2 approaches to run the Spark jobs.
 * Manual steps
 
 ### Automated mechanism -- Use a shell script to run Spark jobs
-Just to remind, before executing this step and further, please ensure that you have updated Twitter App OAuth credentials in [`application.conf`](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/blob/master/src/main/resources/application.conf#L7-10).
-
-Please execute [`exec_spark_jobs.sh`](https://github.com/P7h/p7hb-docker-mllib-twitter-sentiment/blob/master/exec_spark_jobs.sh) on the console.
-
-This script first starts Spark Master and Spark Slave and then launches the Spark jobs one after the other.
-
-This might take sometime as SBT will initiate a download and setup of all the required packages from Maven Central Repo and Typesafe repo as required.
+* Please execute [`/root/exec_spark_jobs.sh`](https://github.com/P7h/p7hb-docker-mllib-twitter-sentiment/blob/master/exec_spark_jobs.sh) in the console after updating the Twitter App OAuth credentials in `application.conf`.
+	* This script first starts Spark Master and Spark Slave and then launches the Spark jobs one after the other.
+* This might take sometime as SBT will initiate a download and setup of all the required packages from Maven Central Repo and Typesafe repo as required.
 
 ### Manual -- Start Spark Services and then execute Spark jobs individually
 #### Start Spark Master
@@ -162,7 +172,7 @@ This Model will be used in the next step for predicting the sentiment of streami
 Build might take a bit of time depending on your internet speed, as SBT will initiate a download and setup of all the required packages from Maven Central Repo and Typesafe repo as required.
 
 #### Execute Spark Streaming job for sentiment prediction
-Just to remind, before executing this step and further, please ensure that you have updated Twitter App OAuth credentials in [`application.conf`](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/blob/master/src/main/resources/application.conf#L7-10).
+Just to remind, before executing this step and further, please ensure that you have updated Twitter App OAuth credentials in [`application.conf`](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/blob/master/src/main/resources/application.conf#L8-11).
 
 	cd /root/Spark-MLlib-Twitter-Sentiment-Analysis/target/scala-2.10/
 	spark-submit --class "org.p7h.spark.sentiment.TweetSentimentAnalyzer" --master spark://spark:7077 mllib-tweet-sentiment-analysis-assembly-0.1.jar
@@ -189,7 +199,7 @@ This is a very quick summary of the steps required for execution of this code.
 Please consider these steps only if you are an expert on Docker, Spark and ecosystem of this project and understand clearly what is being done here.
 
 * Install and launch Docker.
-* Stop Docker and in the Virtual Box GUI, increase RAM of Docker machine [instance named `default` and should be in `Powered Off` state] to at least 2 GB [or more] and # of CPUs to 2 [or more].
+* Stop Docker and in the VirtualBox GUI, increase RAM of Docker machine [instance named `default` and should be in `Powered Off` state] to at least 2 GB [or more] and # of CPUs to 2 [or more].
 * Start Docker again.
 * Pull the project Docker image and launch it.
 	* Might have to wait for ~10 minutes or so [depending on your internet speed].
@@ -203,7 +213,7 @@ Please consider these steps only if you are an expert on Docker, Spark and ecosy
 
 
 > ###NOTE:
-Please do not forget to modify the Twitter App OAuth credentials in the file [`application.conf`](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/blob/master/src/main/resources/application.conf#L7-10).
+Please do not forget to modify the Twitter App OAuth credentials in the file [`application.conf`](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/blob/master/src/main/resources/application.conf#L8-11).
 Please check [Twitter Developer page](https://dev.twitter.com/apps) for more info. 
 
 
