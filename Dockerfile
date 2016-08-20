@@ -28,4 +28,4 @@ ADD bootstrap.sh /root/bootstrap.sh
 # Another shell script to trigger the Spark jobs.
 ADD exec_spark_jobs.sh /root/exec_spark_jobs.sh
 
-CMD bash -C '/root/bootstrap.sh';'bash'
+CMD bash -C '/root/bootstrap.sh';'/bin/bash'
