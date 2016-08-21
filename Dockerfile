@@ -6,7 +6,7 @@ MAINTAINER Prashanth Babu <Prashanth.Babu@gmail.com>
 RUN apt-get -y update && \
     apt-get install -y software-properties-common && \
     apt-get install -y python-pip redis-server && \
-    pip install redis flask && \
+    pip install redis flask logging && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
