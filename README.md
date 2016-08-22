@@ -1,4 +1,8 @@
-# Twitter sentiment analysis with Spark MLlib and visualization 
+# p7hb-docker-mllib-twitter-sentiment [![Docker Pulls](https://img.shields.io/docker/pulls/p7hb/p7hb-docker-mllib-twitter-sentiment.svg)](https://hub.docker.com/r/p7hb/p7hb-docker-mllib-twitter-sentiment/) [![Docker Stars](https://img.shields.io/docker/stars/p7hb/p7hb-docker-mllib-twitter-sentiment.svg)](https://hub.docker.com/r/p7hb/p7hb-docker-mllib-twitter-sentiment/)
+
+Dockerfiles for Twitter sentiment analysis with Spark MLlib and visualization referenced by [https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis).
+
+The image is available directly from [https://index.docker.io](https://hub.docker.com/u/p7hb/).
 
 ## Introduction
 Docker image to analyse and visualize sentiment of tweets in real-time on a world map using Apache Spark ecosytstem [Spark MLlib + Spark Streaming].
@@ -108,9 +112,9 @@ We will be using the accompanying [Docker image](https://hub.docker.com/r/p7hb/p
 * Fix the settings as highlighted in the screenshots below. 
 	* Please note this is minimum required config; you might want to allocate more.
 * Increase RAM of the VM<br>
-![Docker Machine RAM](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/blob/master/images/Docker_Machine__RAM.png)
+![Docker Machine RAM](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/raw/master/images/Docker_Machine__RAM.png)
 * Increase # of CPUs of the VM<br>
-![Docker Machine CPU](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/blob/master/images/Docker_Machine__CPU.png)
+![Docker Machine CPU](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/raw/master/images/Docker_Machine__CPU.png)
 * Relaunch docker after modifying the settings. `docker-machine start default`
 * Any Docker image you create now will have 2 GB RAM and 2 CPUs allocated.
 	* Or the resources you allocated earlier.
@@ -212,7 +216,7 @@ Just to remind, before executing this step and further, please ensure that you h
  2. tweet profile pic
  3. date tweet created
  4. text of the tweet
- 5. sentiment predicted as per MLlib
+ 5. sentiment predicted by MLlib
  6. sentiment as per Stanford CoreNLP
 
 
