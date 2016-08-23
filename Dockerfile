@@ -3,9 +3,9 @@ FROM p7hb/p7hb-docker-spark:1.6.2
 MAINTAINER Prashanth Babu <Prashanth.Babu@gmail.com>
 
 # Download and install all the required packages.
-RUN apt-get -y update && \
-    apt-get install -y software-properties-common && \
-    apt-get install -y python-pip redis-server && \
+RUN apt-get -yqq update && \
+    apt-get install -yqq software-properties-common && \
+    apt-get install -yqq python-pip redis-server && \
     pip install redis flask logging && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*

@@ -1,11 +1,15 @@
-# p7hb-docker-mllib-twitter-sentiment [![Docker Pulls](https://img.shields.io/docker/pulls/p7hb/p7hb-docker-mllib-twitter-sentiment.svg)](https://hub.docker.com/r/p7hb/p7hb-docker-mllib-twitter-sentiment/) [![Docker Stars](https://img.shields.io/docker/stars/p7hb/p7hb-docker-mllib-twitter-sentiment.svg)](https://hub.docker.com/r/p7hb/p7hb-docker-mllib-twitter-sentiment/)
+# p7hb-docker-mllib-twitter-sentiment ![](https://img.shields.io/docker/automated/p7hb/p7hb-docker-mllib-twitter-sentiment.svg) [![HitCount](https://hitt.herokuapp.com/P7h/p7hb-docker-mllib-twitter-sentiment.svg)](https://github.com/P7h/p7hb-docker-mllib-twitter-sentiment) [![Docker Pulls](https://img.shields.io/docker/pulls/p7hb/p7hb-docker-mllib-twitter-sentiment.svg)](https://hub.docker.com/r/p7hb/p7hb-docker-mllib-twitter-sentiment/) [![Size](https://images.microbadger.com/badges/image/p7hb/p7hb-docker-mllib-twitter-sentiment.svg)](https://microbadger.com/images/p7hb/p7hb-docker-mllib-twitter-sentiment)
 
-Dockerfiles for Twitter sentiment analysis with Spark MLlib and visualization referenced by [https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis "» GitHub Repo").
+Dockerfiles for ***Twitter sentiment analysis with Spark MLlib and visualization*** referenced by [https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis "» GitHub Repo").
 
 The image is available directly from [https://index.docker.io](https://hub.docker.com/u/p7hb/ "» Docker Hub").
 
+
 ## Introduction
 Docker image to analyse and visualize sentiment of tweets in real-time on a world map using Apache Spark ecosystem (Spark MLlib + Spark Streaming + Spark SQL).
+
+For more details on this project and the code associated with it, please check the [blogpost](http://P7h.org/blog/2016/08/21/spark-twitter-sentiment/).<br>
+Also, README of [https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis "» GitHub Repo") has details on how to execute this project.
 
 
 ## Twitter sentiment visualization Demo
@@ -48,9 +52,13 @@ With this approach, we are pulling the image hosted on Docker Hub instead of bui
 
 
 ## Executing the prototype
-Please check the README of the [Spark-MLlib-Twitter-Sentiment-Analysis project](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis "» GitHub Repo") for detailed steps on executing this prototype.
+Please check the README of the [Spark-MLlib-Twitter-Sentiment-Analysis project](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis "» GitHub Repo") for detailed instructions on executing this prototype.
 
 
-## License
+## Contributing [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](http://p7h.org/contact/)
+If you find any issues or would like to discuss further, please ping me on my Twitter handle [@P7h](http://twitter.com/P7h "» Twitter/@P7h") or drop me an [email](http://p7h.org/contact/ "» Contact me"). Appreciate your help. Thanks!
+
+
+## License [![License](http://img.shields.io/:license-apache-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 Copyright &copy; 2016 Prashanth Babu.<br>
 Licensed under the [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
