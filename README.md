@@ -1,4 +1,5 @@
-# p7hb-docker-mllib-twitter-sentiment ![](https://img.shields.io/docker/automated/p7hb/p7hb-docker-mllib-twitter-sentiment.svg) [![HitCount](https://hitt.herokuapp.com/P7h/p7hb-docker-mllib-twitter-sentiment.svg)](https://github.com/P7h/p7hb-docker-mllib-twitter-sentiment) [![Docker Pulls](https://img.shields.io/docker/pulls/p7hb/p7hb-docker-mllib-twitter-sentiment.svg)](https://hub.docker.com/r/p7hb/p7hb-docker-mllib-twitter-sentiment/) [![Size](https://images.microbadger.com/badges/image/p7hb/p7hb-docker-mllib-twitter-sentiment.svg)](https://microbadger.com/images/p7hb/p7hb-docker-mllib-twitter-sentiment)
+# p7hb-docker-mllib-twitter-sentiment
+[![](https://images.microbadger.com/badges/version/p7hb/p7hb-docker-mllib-twitter-sentiment.svg)](http://microbadger.com/images/p7hb/p7hb-docker-mllib-twitter-sentiment) ![](https://img.shields.io/docker/automated/p7hb/p7hb-docker-mllib-twitter-sentiment.svg) [![Docker Pulls](https://img.shields.io/docker/pulls/p7hb/p7hb-docker-mllib-twitter-sentiment.svg)](https://hub.docker.com/r/p7hb/p7hb-docker-mllib-twitter-sentiment/) [![Size](https://images.microbadger.com/badges/image/p7hb/p7hb-docker-mllib-twitter-sentiment.svg)](https://microbadger.com/images/p7hb/p7hb-docker-mllib-twitter-sentiment) [![HitCount](https://hitt.herokuapp.com/P7h/p7hb-docker-mllib-twitter-sentiment.svg)](https://github.com/P7h/p7hb-docker-mllib-twitter-sentiment)
 
 Dockerfiles for ***Twitter sentiment analysis with Spark MLlib and visualization*** referenced by [https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis "» GitHub Repo").
 
@@ -10,6 +11,10 @@ Docker image to analyse and visualize sentiment of tweets in real-time on a worl
 
 For more details on this project and the code associated with it, please check the [blogpost](http://P7h.org/blog/2016/08/21/spark-twitter-sentiment/).<br>
 Also, README of [https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis "» GitHub Repo") has details on how to execute this project.
+
+
+> #### Note:
+I had actually written this as a blog post on my [personal website](http://P7h.org "» P7h.org"), but unfortunately I managed to corrupt my Octopress GitHub repo. :anguished: :weary: :rage: So, till the time I salvage it, I thought of publishing it as [GitHub wiki](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/wiki/Blog "» Blog post") for the time being.
 
 
 ## Twitter sentiment visualization Demo
@@ -55,7 +60,15 @@ With this approach, we are pulling the image hosted on Docker Hub instead of bui
 Please check the README of the [Spark-MLlib-Twitter-Sentiment-Analysis project](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis "» GitHub Repo") for detailed instructions on executing this prototype.
 
 
-## Contributing [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](http://p7h.org/contact/)
+## Helpful links
+1. I am currently hosting this web app on Amazon EC2: [http://54.84.252.184:9999/](http://54.84.252.184:9999/). I will bring it down sometime next week.
+2. Docker Image on Docker Hub Registry: [https://hub.docker.com/r/p7hb/p7hb-docker-mllib-twitter-sentiment/](https://hub.docker.com/r/p7hb/p7hb-docker-mllib-twitter-sentiment/).
+3. GitHub URL for source code of the project: [https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis).
+4. GitHub URL for blog post on code walkthru: [https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/wiki/Blog](https://github.com/P7h/Spark-MLlib-Twitter-Sentiment-Analysis/wiki/Blog).
+5. Dockerfile GitHub repo: [https://github.com/P7h/p7hb-docker-mllib-twitter-sentiment](https://github.com/P7h/p7hb-docker-mllib-twitter-sentiment).
+
+
+## Problems? Questions? Contributions? [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat)](http://p7h.org/contact/)
 If you find any issues or would like to discuss further, please ping me on my Twitter handle [@P7h](http://twitter.com/P7h "» Twitter/@P7h") or drop me an [email](http://p7h.org/contact/ "» Contact me"). Appreciate your help. Thanks!
 
 
