@@ -14,7 +14,7 @@ if [ ! -d $TRAINING_DATA_FOLDER ]; then
     TRAINING_DATA_ZIP_FILE="/root/trainingandtestdata.zip"
     # Sentiment140 website is a bit slow. So, instead retrieving the training data archive from another source.
     # wget -q http://cs.stanford.edu/people/alecmgo/$TRAINING_DATA_ZIP_FILE
-    wget --no-check-certificate 'https://googledrive.com/host/0B7czam11htXVT3NLNEx3UDdaV1k' -qO $TRAINING_DATA_ZIP_FILE
+    wget --no-check-certificate 'https://dl.dropboxusercontent.com/u/7113917/trainingandtestdata.zip' -qO $TRAINING_DATA_ZIP_FILE
     echo -e "   ****** Download complete...... ******\n"
 
     echo -e "***** Extracting Sentiment140 Training data...... *****"
